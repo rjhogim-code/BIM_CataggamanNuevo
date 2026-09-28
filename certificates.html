@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Certificates | Barangay Cataggaman Nuevo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="certificates">
+<aside class="sidebar" id="sidebar">
+<div class="brand"><div class="brand-mark">CN</div>Barangay Cataggaman Nuevo<span>Information Management System</span>
+</div>
+<div class="nav-title">Workspace</div>
+<a class="nav" data-page="dashboard" href="index.html">Dashboard</a>
+<a class="nav" data-page="residents" href="residents.html">Resident Records</a>
+<a class="nav" data-page="incidents" href="incidents.html">Incident Reports</a>
+<a class="nav" data-page="certificates" href="certificates.html">Generate Certificates</a>
+</aside>
+<main class="main">
+<header class="top">
+<div class="top-title">
+<button class="btn mobile" id="menu">Menu</button>
+<div><h1>Cataggaman Nuevo</h1><small>Barangay Information Management System</small></div>
+</div>
+<div class="top-tools"><div class="clock" id="clock">
+</div>
+<div class="user-panel"><span class="user-avatar">CN</span><span id="currentUser" aria-label="Signed-in user"></span></div><button class="btn logout" id="logout">Log out</button></div>
+</header>
+<div class="content">
+<div class="heading">
+<div>
+<h2>Generate Certificates</h2>
+<p>Prepare, preview, and print an official certificate.</p>
+</div>
+</div>
+<div class="cert-layout">
+<section class="panel no-print">
+<h3>Certificate details</h3>
+<div class="form-grid">
+<div class="field full">
+<label>Certificate type</label>
+<select id="certType">
+<option>Barangay Clearance</option>
+<option>Certificate of Indigency</option>
+<option>Certificate of Residency</option>
+</select>
+</div>
+<div class="field full">
+<label>Resident</label>
+<select id="certResident">
+<option value="">Manual entry</option>
+</select>
+</div>
+<div class="field full">
+<label>Full name</label>
+<input id="certName" placeholder="Resident full name">
+</div>
+<div class="field">
+<label>Zone / Sitio</label>
+<input id="certAddress" placeholder="Zone or sitio">
+</div>
+<div class="field">
+<label>Purpose</label>
+<input id="certPurpose" placeholder="Purpose of request">
+</div>
+<div class="field full">
+<label>Date issued</label>
+<input id="certDate" type="date">
+</div>
+</div>
+<div class="form-actions">
+<button class="btn primary" id="printCert">Print Certificate</button>
+</div>
+</section>
+<article class="certificate">
+<div class="seal">CN</div>
+<div class="official">REPUBLIC OF THE PHILIPPINES<br>PROVINCE OF CAGAYAN<br>CITY OF TUGUEGARAO<br>
+<b>BARANGAY CATAGGAMAN NUEVO</b>
+</div>
+<h2>BARANGAY</h2>
+<h3 id="previewType">BARANGAY CLEARANCE</h3>
+<p class="cert-body">TO WHOM IT MAY CONCERN:<br>
+<br>This is to certify that <span class="cert-name" id="previewName">[RESIDENT NAME]</span>, of legal age, is a bona fide resident of <span id="previewAddress">[ZONE / SITIO]</span>, Barangay Cataggaman Nuevo, Tuguegarao City, Cagayan.<br>
+<br>This certificate is issued upon request for <span id="previewPurpose">[PURPOSE]</span> and for whatever lawful purpose it may serve.<br>
+<br>Issued this <span id="previewDate">
+</span> at Barangay Cataggaman Nuevo, Tuguegarao City, Cagayan.</p>
+<div class="signature">
+<b>BARANGAY CAPTAIN</b>
+<br>Barangay Captain</div>
+</article>
+</div>
+</div>
+</main>
+<script src="app.js">
+</script>
+</body>
+</html>

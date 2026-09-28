@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Incidents | Barangay Cataggaman Nuevo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="incidents">
+<aside class="sidebar" id="sidebar">
+<div class="brand"><div class="brand-mark">CN</div>Barangay Cataggaman Nuevo<span>Information Management System</span>
+</div>
+<div class="nav-title">Workspace</div>
+<a class="nav" data-page="dashboard" href="index.html">Dashboard</a>
+<a class="nav" data-page="residents" href="residents.html">Resident Records</a>
+<a class="nav" data-page="incidents" href="incidents.html">Incident Reports</a>
+<a class="nav" data-page="certificates" href="certificates.html">Generate Certificates</a>
+</aside>
+<main class="main">
+<header class="top">
+<div class="top-title">
+<button class="btn mobile" id="menu">Menu</button>
+<div><h1>Cataggaman Nuevo</h1><small>Barangay Information Management System</small></div>
+</div>
+<div class="top-tools"><div class="clock" id="clock">
+</div>
+<div class="user-panel"><span class="user-avatar">CN</span><span id="currentUser" aria-label="Signed-in user"></span></div><button class="btn logout" id="logout">Log out</button></div>
+</header>
+<div class="content">
+<div class="heading">
+<div>
+<h2>Incident Reports</h2>
+<p>Record and follow up reported incidents.</p>
+</div>
+<button class="btn primary" id="newIncident">File Incident Report</button>
+</div>
+<section class="panel">
+<div class="toolbar">
+<input id="incidentSearch" placeholder="Search cases, people, or incident type..." aria-label="Search incidents">
+<select id="incidentFilter" aria-label="Filter by status">
+<option value="">All statuses</option>
+<option>Pending</option>
+<option>Under Investigation</option>
+<option>Resolved</option>
+</select>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Case no.</th>
+<th>Complainant</th>
+<th>Respondent</th>
+<th>Type</th>
+<th>Date</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="incidentRows">
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<dialog class="modal" id="recordDialog">
+<form id="incidentForm">
+<div class="dialog-title">
+<h3>File incident report</h3>
+<button type="button" class="btn" id="closeDialog">Close</button>
+</div>
+<div class="form-grid">
+<div class="field">
+<label>Case no. *</label>
+<input name="caseNo" required>
+</div>
+<div class="field">
+<label>Incident type *</label>
+<input name="type" required>
+</div>
+<div class="field">
+<label>Complainant *</label>
+<input name="complainant" required>
+</div>
+<div class="field">
+<label>Respondent</label>
+<input name="respondent">
+</div>
+<div class="field">
+<label>Date</label>
+<input name="date" type="datetime-local">
+</div>
+<div class="field">
+<label>Status</label>
+<select name="status">
+<option>Pending</option>
+<option>Under Investigation</option>
+<option>Resolved</option>
+</select>
+</div>
+<div class="field">
+<label>Recorded by</label>
+<input data-recorded-by readonly>
+</div>
+<div class="field full">
+<label>Description</label>
+<textarea name="description">
+</textarea>
+</div>
+</div>
+<div class="form-actions">
+<button type="button" class="btn" id="cancelDialog">Cancel</button>
+<button class="btn primary">Save report</button>
+</div>
+</form>
+</dialog>
+<script src="app.js">
+</script>
+</body>
+</html>
