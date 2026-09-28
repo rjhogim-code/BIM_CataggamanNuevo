@@ -20,8 +20,11 @@ CREATE TABLE IF NOT EXISTS residents (
   voter VARCHAR(30) NULL,
   zone VARCHAR(150) NULL,
   contact VARCHAR(50) NULL,
+  email VARCHAR(150) NULL,
   recorded_by VARCHAR(150) NULL,
-  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_residents_name (name),
+  INDEX idx_residents_zone (zone)
 );
 
 CREATE TABLE IF NOT EXISTS incidents (
@@ -34,7 +37,9 @@ CREATE TABLE IF NOT EXISTS incidents (
   status VARCHAR(30) NOT NULL DEFAULT 'Pending',
   description TEXT NULL,
   recorded_by VARCHAR(150) NULL,
-  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_incidents_case_no (case_no),
+  INDEX idx_incidents_status (status)
 );
 
 CREATE TABLE IF NOT EXISTS certificates (
