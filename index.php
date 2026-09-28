@@ -32,17 +32,17 @@ require __DIR__ . '/includes/header.php';
 <div class="cards">
 <article class="card stat">
 <label>Total Residents</label>
-<strong><?= $residentCount ?></strong>
+<strong id="residentCount"><?= $residentCount ?></strong>
 <small>Registered residents</small>
 </article>
 <article class="card stat">
 <label>Total Incidents</label>
-<strong><?= $incidentCount ?></strong>
-<small><?= $activeCases ?> active cases</small>
+<strong id="incidentCount"><?= $incidentCount ?></strong>
+<small id="activeCases"><?= $activeCases ?> active cases</small>
 </article>
 <article class="card stat">
 <label>Certificates Issued Today</label>
-<strong><?= $certificateToday ?></strong>
+<strong id="certificateCount"><?= $certificateToday ?></strong>
 <small>Issued today</small>
 </article>
 </div>
