@@ -81,7 +81,7 @@ if ($editId !== null) {
   </div>
   <div class="panel">
     <form class="toolbar" method="get">
-      <input name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search name, address, or zone…" oninput="this.form.requestSubmit()">
+      <input name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search name, address, or zone…" oninput="this.form.requestSubmit()" <?= $showDialog ? '' : 'autofocus' ?>>
       <select name="gender" onchange="this.form.requestSubmit()">
         <option value="">All genders</option>
         <?php foreach (['Female', 'Male', 'Other'] as $opt): ?>
@@ -126,7 +126,7 @@ if ($editId !== null) {
       <?php if ($editItem): ?><input type="hidden" name="id" value="<?= (int) $editItem['id'] ?>"><?php endif; ?>
       <div class="dialog-title"><h3><?= $editItem ? 'Edit resident' : 'Add resident' ?></h3><a class="btn" href="resident.php">✕</a></div>
       <div class="form-grid">
-        <div class="field full"><label>Full name *</label><input name="name" required value="<?= htmlspecialchars($editItem['name'] ?? '') ?>"></div>
+        <div class="field full"><label>Full name *</label><input name="name" required autofocus value="<?= htmlspecialchars($editItem['name'] ?? '') ?>"></div>
         <div class="field"><label>Age</label><input name="age" type="number" min="0" max="125" value="<?= htmlspecialchars($editItem['age'] ?? '') ?>"></div>
         <div class="field"><label>Gender</label><select name="gender">
           <?php foreach (['Female', 'Male', 'Other'] as $opt): ?>

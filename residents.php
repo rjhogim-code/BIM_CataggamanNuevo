@@ -68,7 +68,7 @@ require __DIR__ . '/includes/header.php';
 </div>
 <section class="panel">
 <form class="toolbar" method="get">
-<input id="residentSearch" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search by name or zone..." aria-label="Search residents" oninput="this.form.requestSubmit()">
+<input id="residentSearch" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search by name or zone..." aria-label="Search residents" oninput="this.form.requestSubmit()" <?= $showDialog ? '' : 'autofocus' ?>>
 </form>
 <div class="table-wrap">
 <table>
@@ -122,7 +122,7 @@ require __DIR__ . '/includes/header.php';
 <div class="form-grid">
 <div class="field full">
 <label>Full name *</label>
-<input name="name" required value="<?= htmlspecialchars($editItem['name'] ?? '') ?>">
+<input name="name" required autofocus value="<?= htmlspecialchars($editItem['name'] ?? '') ?>">
 </div>
 <div class="field">
 <label>Age</label>

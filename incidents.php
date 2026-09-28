@@ -101,7 +101,7 @@ require __DIR__ . '/includes/header.php';
 </div>
 <section class="panel">
 <form class="toolbar" method="get">
-<input id="incidentSearch" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search cases, people, or incident type..." aria-label="Search incidents" oninput="this.form.requestSubmit()">
+<input id="incidentSearch" name="q" value="<?= htmlspecialchars($search) ?>" placeholder="Search cases, people, or incident type..." aria-label="Search incidents" oninput="this.form.requestSubmit()" <?= $showDialog ? '' : 'autofocus' ?>>
 <select id="incidentFilter" name="status" aria-label="Filter by status" onchange="this.form.requestSubmit()">
 <option value="">All statuses</option>
 <?php foreach (['Pending', 'Under Investigation', 'Resolved'] as $opt): ?>
@@ -174,7 +174,7 @@ require __DIR__ . '/includes/header.php';
 </div>
 <div class="field">
 <label>Complainant *</label>
-<input name="complainant" required value="<?= htmlspecialchars($editItem['complainant'] ?? '') ?>">
+<input name="complainant" required autofocus value="<?= htmlspecialchars($editItem['complainant'] ?? '') ?>">
 </div>
 <div class="field">
 <label>Respondent</label>

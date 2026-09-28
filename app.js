@@ -15,7 +15,10 @@
     setInterval(update, 30000);
   }
 
-  document.querySelectorAll('dialog[data-autoopen]').forEach(dialog => dialog.showModal());
+  document.querySelectorAll('dialog[data-autoopen]').forEach(dialog => {
+    dialog.showModal();
+    dialog.addEventListener('close', () => history.replaceState(null, '', location.pathname), { once: true });
+  });
 
   document.querySelectorAll('[data-confirm]').forEach(el => {
     el.addEventListener('click', event => {

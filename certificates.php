@@ -60,7 +60,7 @@ require __DIR__ . '/includes/header.php';
 </div>
 <div class="field full">
 <label>Resident</label>
-<select name="certResident" id="certResident">
+<select name="certResident" id="certResident" autofocus>
 <option value="">Manual entry</option>
 <?php foreach ($residents as $r): ?>
 <option value="<?= (int) $r['id'] ?>" <?= (string) $certResident === (string) $r['id'] ? 'selected' : '' ?>><?= htmlspecialchars($r['name']) ?></option>

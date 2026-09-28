@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form class="login-form" method="post">
 <input type="hidden" name="form_action" value="login">
 <label for="username">Username
-<input id="username" name="username" autocomplete="username" placeholder="Enter your username" required>
+<input id="username" name="username" autocomplete="username" placeholder="Enter your username" required <?= $showRegister ? '' : 'autofocus' ?>>
 </label>
 <label for="password">Password
 <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form class="login-form" method="post">
 <input type="hidden" name="form_action" value="register">
 <label for="registerUsername">Username
-<input id="registerUsername" name="register_username" autocomplete="username" placeholder="Choose a username" required>
+<input id="registerUsername" name="register_username" autocomplete="username" placeholder="Choose a username" required <?= $showRegister ? 'autofocus' : '' ?>>
 </label>
 <label for="registerPassword">Password
 <input id="registerPassword" name="register_password" type="password" autocomplete="new-password" placeholder="Create a password" minlength="6" required>
