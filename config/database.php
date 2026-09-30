@@ -4,7 +4,7 @@ $host = "localhost";
 $dbname = "barangay_information_system";
 $port = "3306";
 $username = "root";
-$password = "Gymxx#2005.";
+$password = "";
 
 try {
     $pdo = new PDO(
