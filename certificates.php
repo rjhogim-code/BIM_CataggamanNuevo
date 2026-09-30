@@ -14,6 +14,7 @@ $certMiddleName = '';
 $certName = '';
 $certAddress = '';
 $certPurpose = '';
+$certFurther = '';
 $certDate = date('Y-m-d');
 $printNow = false;
 $error = '';
@@ -28,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $certName = trim($certLastName . ', ' . $certFirstName . ($certMiddleName !== '' ? ' ' . $certMiddleName : ''));
     $certAddress = trim($_POST['certAddress'] ?? '');
     $certPurpose = trim($_POST['certPurpose'] ?? '');
+    $certFurther = trim($_POST['certFurther'] ?? '');
     $certDate = $_POST['certDate'] ?? $certDate;
 
     if ($certLastName === '' || $certFirstName === '') {
@@ -39,7 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$certTypes = ['Barangay Clearance', 'Certificate of Indigency', 'Certificate of Residency'];
+$certTypes = ['Barangay Certification', 'Barangay Clearance', 'Certificate of Indigency', 'Certificate of Residency'];
+
+// Signatory printed on every certificate (see the official letterhead template).
+$signatory = 'WALDO L. ZINGAPAN';
+$signatoryTitle = 'Punong Barangay';
+
+// Printed names follow the template: FIRST MIDDLE LAST (the stored name stays "Last, First Middle").
+$certDisplayName = trim(implode(' ', array_filter([$certFirstName, $certMiddleName, $certLastName], 'strlen')));
+$certTimestamp = $certDate !== '' ? strtotime($certDate) : false;
 
 $page = 'certificates';
 $pageTitle = 'Certificates';
@@ -100,6 +110,10 @@ require __DIR__ . '/includes/header.php';
 <input name="certPurpose" id="certPurpose" placeholder="Purpose of request" value="<?= htmlspecialchars($certPurpose) ?>">
 </div>
 <div class="field full">
+<label>Certifies further <small>(optional)</small></label>
+<textarea name="certFurther" id="certFurther" rows="3" placeholder="e.g. the above-named person is going to apply for electrical and water connection"><?= htmlspecialchars($certFurther) ?></textarea>
+</div>
+<div class="field full">
 <label>Date issued</label>
 <input name="certDate" id="certDate" type="date" value="<?= htmlspecialchars($certDate) ?>">
 </div>
@@ -109,20 +123,31 @@ require __DIR__ . '/includes/header.php';
 </div>
 </form>
 </section>
-<article class="certificate">
-<div class="seal"><img src="Cat.jpg" alt="Barangay Cataggaman Nuevo logo"></div>
-<div class="official">REPUBLIC OF THE PHILIPPINES<br>PROVINCE OF CAGAYAN<br>CITY OF TUGUEGARAO<br>
-<b>BARANGAY CATAGGAMAN NUEVO</b>
+<article class="certificate" id="certificate">
+<img class="cert-letterhead" src="certificate-letterhead.jpg" alt="">
+<div class="cert-content">
+<h2 class="cert-title" id="previewType"><?= htmlspecialchars(strtoupper($certType)) ?></h2>
+<p class="cert-to">TO WHOM IT MAY CONCERN:</p>
+<div class="cert-body">
+<p><b><i>THIS IS TO CERTIFY</i></b> that <b class="cert-name" id="previewName"><?= $certDisplayName !== '' ? htmlspecialchars($certDisplayName) : '[RESIDENT NAME]' ?></b>, of legal age, is a bona fide resident of <span id="previewAddress"><?= $certAddress !== '' ? htmlspecialchars($certAddress) . ', ' : '' ?></span>Barangay Cataggaman Nuevo, Tuguegarao City, Cagayan.</p>
+<p id="previewFurtherRow"<?= $certFurther === '' ? ' hidden' : '' ?>><b><i>CERTIFIES FURTHER</i></b> that <span id="previewFurther"><?= htmlspecialchars($certFurther) ?></span></p>
+<p>This certification is issued upon the request of the above-named person for <i id="previewPurpose"><?= $certPurpose !== '' ? htmlspecialchars($certPurpose) : 'whatever legal purpose it may serve' ?></i>.</p>
+<p>Issued this <?php if ($certTimestamp): ?><b><span id="previewDay"><?= date('j', $certTimestamp) ?></span><sup id="previewSuffix"><?= date('S', $certTimestamp) ?></sup></b> day of <b id="previewMonthYear"><?= strtoupper(date('F Y', $certTimestamp)) ?></b><?php else: ?><b><span id="previewDay"></span><sup id="previewSuffix"></sup></b> day of <b id="previewMonthYear"></b><?php endif; ?> at Barangay Cataggaman Nuevo, Tuguegarao City, Cagayan.</p>
 </div>
-<h2>BARANGAY</h2>
-<h3 id="previewType"><?= htmlspecialchars(strtoupper($certType)) ?></h3>
-<p class="cert-body">TO WHOM IT MAY CONCERN:<br>
-<br>This is to certify that <span class="cert-name" id="previewName"><?= $certName !== '' ? htmlspecialchars($certName) : '[RESIDENT NAME]' ?></span>, of legal age, is a bona fide resident of <span id="previewAddress"><?= $certAddress !== '' ? htmlspecialchars($certAddress) : '[ZONE / SITIO]' ?></span>, Barangay Cataggaman Nuevo, Tuguegarao City, Cagayan.<br>
-<br>This certificate is issued upon request for <span id="previewPurpose"><?= $certPurpose !== '' ? htmlspecialchars($certPurpose) : '[PURPOSE]' ?></span> and for whatever lawful purpose it may serve.<br>
-<br>Issued this <span id="previewDate"><?= $certDate ? date('F j, Y', strtotime($certDate)) : '' ?></span> at Barangay Cataggaman Nuevo, Tuguegarao City, Cagayan.</p>
-<div class="signature">
-<b>BARANGAY CAPTAIN</b>
-<br>Barangay Captain</div>
+<div class="cert-sign">
+<b><?= htmlspecialchars($signatory) ?></b>
+<i><?= htmlspecialchars($signatoryTitle) ?></i>
+</div>
+</div>
+<div class="cert-foot" id="previewApplicant"<?= $certType === 'Barangay Clearance' ? '' : ' hidden' ?>>
+<div class="cert-applicant"><i>Signature of Applicant</i></div>
+<dl>
+<dt>Res. Cert. No.</dt><dd></dd>
+<dt>Date</dt><dd></dd>
+<dt>Issued on</dt><dd></dd>
+<dt>Issued at</dt><dd>Tuguegarao City, Cagayan</dd>
+</dl>
+</div>
 </article>
 </div>
 <script>
@@ -139,20 +164,30 @@ document.querySelector('#certResident').addEventListener('change', event => {
   updatePreview();
 });
 
-function updatePreview() {
-  document.querySelector('#previewType').textContent = document.querySelector('#certType').value.toUpperCase();
-  const lastName = document.querySelector('#certLastName').value.trim();
-  const firstName = document.querySelector('#certFirstName').value.trim();
-  const middleName = document.querySelector('#certMiddleName').value.trim();
-  const fullName = [lastName ? `${lastName},` : '', firstName, middleName].filter(Boolean).join(' ');
-  document.querySelector('#previewName').textContent = fullName || '[RESIDENT NAME]';
-  document.querySelector('#previewAddress').textContent = document.querySelector('#certAddress').value || '[ZONE / SITIO]';
-  document.querySelector('#previewPurpose').textContent = document.querySelector('#certPurpose').value || '[PURPOSE]';
-  const d = document.querySelector('#certDate').value;
-  document.querySelector('#previewDate').textContent = d ? new Date(`${d}T12:00:00`).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+function ordinalSuffix(day) {
+  if (day % 100 >= 11 && day % 100 <= 13) return 'th';
+  return { 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th';
 }
 
-['certType', 'certLastName', 'certFirstName', 'certMiddleName', 'certAddress', 'certPurpose', 'certDate'].forEach(id => document.querySelector('#' + id).addEventListener('input', updatePreview));
+function updatePreview() {
+  const value = id => document.querySelector('#' + id).value.trim();
+  const type = document.querySelector('#certType').value;
+  document.querySelector('#previewType').textContent = type.toUpperCase();
+  document.querySelector('#previewApplicant').hidden = type !== 'Barangay Clearance';
+  const fullName = [value('certFirstName'), value('certMiddleName'), value('certLastName')].filter(Boolean).join(' ');
+  document.querySelector('#previewName').textContent = fullName || '[RESIDENT NAME]';
+  document.querySelector('#previewAddress').textContent = value('certAddress') ? `${value('certAddress')}, ` : '';
+  document.querySelector('#previewPurpose').textContent = value('certPurpose') || 'whatever legal purpose it may serve';
+  document.querySelector('#previewFurther').textContent = value('certFurther');
+  document.querySelector('#previewFurtherRow').hidden = !value('certFurther');
+  const d = value('certDate');
+  const date = d ? new Date(`${d}T12:00:00`) : null;
+  document.querySelector('#previewDay').textContent = date ? date.getDate() : '';
+  document.querySelector('#previewSuffix').textContent = date ? ordinalSuffix(date.getDate()) : '';
+  document.querySelector('#previewMonthYear').textContent = date ? date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase() : '';
+}
+
+['certType', 'certLastName', 'certFirstName', 'certMiddleName', 'certAddress', 'certPurpose', 'certFurther', 'certDate'].forEach(id => document.querySelector('#' + id).addEventListener('input', updatePreview));
 
 document.querySelector('#printCert').addEventListener('click', event => {
   if (!document.querySelector('#certLastName').value.trim() || !document.querySelector('#certFirstName').value.trim()) {
