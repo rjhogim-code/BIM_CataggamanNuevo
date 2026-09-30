@@ -1,0 +1,60 @@
+CREATE DATABASE IF NOT EXISTS barangay_information_system
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE barangay_information_system;
+
+-- 1. USERS
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'Staff',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 2. RESIDENTS
+CREATE TABLE IF NOT EXISTS residents (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    last_name VARCHAR(100) NULL,
+    first_name VARCHAR(100) NULL,
+    middle_name VARCHAR(100) NULL,
+    age INT NULL,
+    gender VARCHAR(20) NULL,
+    civil VARCHAR(20) NULL,
+    voter VARCHAR(30) NULL,
+    zone VARCHAR(150) NULL,
+    contact VARCHAR(50) NULL,
+    recorded_by VARCHAR(150) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 3. INCIDENTS
+ALTER TABLE residents
+    ADD COLUMN IF NOT EXISTS last_name VARCHAR(100) NULL,
+    ADD COLUMN IF NOT EXISTS first_name VARCHAR(100) NULL,
+    ADD COLUMN IF NOT EXISTS middle_name VARCHAR(100) NULL;
+
+CREATE TABLE IF NOT EXISTS incidents (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    case_no VARCHAR(50) NOT NULL UNIQUE,
+    complainant VARCHAR(150) NOT NULL,
+    respondent VARCHAR(150) NULL,
+    type VARCHAR(100) NOT NULL,
+    incident_date DATETIME NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'Pending',
+    description TEXT NULL,
+    recorded_by VARCHAR(150) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 4. CERTIFICATES
+CREATE TABLE IF NOT EXISTS certificates (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    issue_date DATE NOT NULL,
+    recorded_by VARCHAR(150) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
